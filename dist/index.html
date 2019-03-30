@@ -1,0 +1,209 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Wahyu alfarisi, create app with vanila js , budget app, membuat aplikasi budget , hitung budget dan mengurangi pemasukan dan pengeluaran">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Wahyu Alfarisi || Budget APP </title>
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+  
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <link rel="icon" 
+  type="image/png" 
+  href="img.ico/android-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="img.ico/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img.ico/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img.ico/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img.ico/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img.ico/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img.ico/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img.ico/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img.ico/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img.ico/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="img.ico/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img.ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img.ico/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img.ico/favicon-16x16.png">
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="img.ico/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="app.css">
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+</head>
+
+<body id="layout-container">
+  <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100" id="content__bottom" >
+    <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800" id="content__header" >
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title"><b>Night mode</b>
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+            <input type="checkbox" id="switch-2" class="mdl-switch__input toggleDark" >
+            <span class="mdl-switch__label"></span>
+          </label>
+        </span>
+        <div class="mdl-layout-spacer"></div>
+      </div>
+    </header>
+    <div class="demo-ribbon"></div>
+    <main class="demo-main mdl-layout__content">
+      <div class="demo-container mdl-grid" >
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone" ></div>
+        <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col" id="darkmode">
+         
+          <p class="text-center header_title" style="font-size: 2vw;">Calculate your budget </p>
+          <!-- row 1 -->
+          <div class="row">
+            <div class="col-sm-6">
+              <img src="svg1.svg" width="290px" class="img-responsive animated swing" />
+            </div>
+            <div class="col-sm-6">
+              <div class="top">
+                <div class="budget">
+                  <div class="budget__title">
+                    Available Budget in <span class="budget__title--month">%Month%</span>:
+                  </div>
+
+                  <div class="budget__value"></div>
+
+                  <div class="budget__income clearfix">
+                    <div class="budget__income--text">Income</div>
+                    <div class="right">
+                      <div class="budget__income--value"></div>
+                      <div class="budget__income--percentage">&nbsp;</div>
+                    </div>
+                  </div>
+
+                  <div class="budget__expenses clearfix">
+                    <div class="budget__expenses--text">Expenses</div>
+                    <div class="right clearfix">
+                      <div class="budget__expenses--value"></div>
+                      <div class="budget__expenses--percentage"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end row 1 -->
+
+          <!-- input type  -->
+          <div class="row">
+            <div class="add">
+              <div class="add__container">
+                <select class="add__type">
+                  <option value="inc" selected>+</option>
+                  <option value="exp">-</option>
+                </select>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input desc" type="text" id="sample1">
+                    <label class="mdl-textfield__label " for="sample1">Description...</label>
+                </div>
+                <input type="number" class="add__value" id="input__value" placeholder="Value">
+                <button class="add__btn"><i class="ion-ios-checkmark-outline"></i></button>
+              </div>
+              <p class="text-center" style="font-size: 2vw" ><em class="describe__nominal" ></em> </p>
+            </div>
+          </div>
+          <!-- end input type -->
+
+          <!-- income and expense -->
+          <div class="content-body">
+            <div class="row">
+              <div class="col-sm-6" >
+                  <h2 class="icome__title">Income</h2>
+                  <table class="table" >
+                      <tbody class="income__list">
+                          <!-- <tr>
+                            <th>Project</th>
+                            <th>2000</th>
+                            <th>x</th>
+                          </tr> -->
+                      </tbody>       
+                  </table>
+              </div>
+              <div class="col-sm-6" >
+                  <h2 class="expenses__title">Expenses</h2>
+                  <table class="table"  >
+                      <tbody class="expense__list">
+                        <!-- <tr>
+                          <th>Project</th>
+                          <th>2000</th>
+                          <th>x</th>
+                        </tr> -->
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+          <!-- end income and expense -->
+          
+        </div>
+      </div>
+      <!-- <footer class="demo-footer mdl-mini-footer">
+          <div class="mdl-mini-footer--left-section">
+            <ul class="mdl-mini-footer--link-list">
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Privacy and Terms</a></li>
+              <li><a href="#">User Agreement</a></li>
+            </ul>
+          </div>
+        </footer> -->
+    </main>
+  </div>
+  <a href="https://wahyualfarisi.github.io" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">More
+    App's</a>
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
