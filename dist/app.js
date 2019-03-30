@@ -152,7 +152,9 @@ var UIController = (function () {
         budgetMonth: '.budget__title--month'
     }
 
-    var formatNumber = function (angka, prefix) {
+    var formatNumber = function (angka, type) {
+        var sign;
+
         var ConverString = String(angka);
         var number_string = ConverString.replace(/[^,\d]/g, '').toString(),
             split = number_string.split(','),
@@ -167,7 +169,14 @@ var UIController = (function () {
         }
 
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+
+        if(type === 'inc'){
+            sign = '+';
+        }else if(type === 'exp'){
+            sign =  '-';
+        }
+
+        return sign + rupiah;
     }
 
     //description nominal 
@@ -282,7 +291,7 @@ var UIController = (function () {
             //Replace the placeholder
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
-            newHtml = newHtml.replace('%value%', formatNumber(obj.value));
+            newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
 
             //remove text content describe nominal
             document.querySelector(DOMstring.describeNominal).textContent = "";
@@ -291,10 +300,13 @@ var UIController = (function () {
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
         displayBudget: function (obj) {
+            var type;
+            obj.budget > 0 ? type = 'inc' : type = 'exp';
+
             document.querySelector(DOMstring.budgetLabel).classList.toggle("animated","bounce");
-            document.querySelector(DOMstring.budgetLabel).textContent = formatNumber(obj.budget);
-            document.querySelector(DOMstring.incomeLabel).textContent = ' + ' + formatNumber(obj.totalInc, 'Rp');
-            document.querySelector(DOMstring.expenseLabel).textContent = ' - ' + formatNumber(obj.totalExp, 'Rp. ');
+            document.querySelector(DOMstring.budgetLabel).textContent = formatNumber(obj.budget, type );
+            document.querySelector(DOMstring.incomeLabel).textContent =  formatNumber(obj.totalInc, 'inc');
+            document.querySelector(DOMstring.expenseLabel).textContent = formatNumber(obj.totalExp, 'exp');
 
             if (obj.percentage > 0) {
                 document.querySelector(DOMstring.expensesPercentagesLabel).textContent = obj.percentage + '%';
